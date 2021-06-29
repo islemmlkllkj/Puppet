@@ -10,15 +10,12 @@ package { 'php7.3':
   provider => apt
 }
 
-#etape 3 téléchargement du dokuwiki.tgz
-
 file { 'download-dokuwiki':
   ensure => present,
   source => 'https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz',
   path   => '/usr/src/dokuwiki.tgz'
 }
 
-#etape 4 extraire l'archive dokuwiki.tgz
 
 exec { 'extract-dokuwiki':
   command => 'tar xavf dokuwiki.tgz',
