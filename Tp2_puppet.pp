@@ -49,10 +49,7 @@ class dokuwiki_deploy {
 }
 
 node 'server0' {
-    #$env = 'recettes'
-    include dokuwiki
-    #include dokuwiki_deploy
-    
+    include dokuwiki   
     deploy_dokuwiki { "recettes.wiki":
         env => "recettes.wiki",
     }
@@ -63,9 +60,7 @@ node 'server0' {
 }
 
 node 'server1' {
-    #$env = 'politique'
     include dokuwiki
-    #include dokuwiki_deploy
     deploy_dokuwiki { "politique.wiki":
         env => "politique.wiki",
     }
