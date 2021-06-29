@@ -1,6 +1,6 @@
-$path1 = '/usr/src'
-$path2 = '/usr/bin'
-$path3 = '/var/www'
+$pathsrc = '/usr/src'
+$pathbin = '/usr/bin'
+$pathweb = '/var/www'
 
 class dokuwiki {
     package { 'apache2':
@@ -14,21 +14,21 @@ class dokuwiki {
     file { 'download-dokuwiki':
             ensure => present,
             source => 'https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz',
-            path   => "${path1}/dokuwiki.tgz"
+            path   => "${pathsrc}/dokuwiki.tgz"
     }
 
     exec { 'extract-dokuwiki':
             command => 'tar xavf dokuwiki.tgz',
-            cwd     => "${path1}",
-            path    => ["${path2}"],
+            cwd     => "${pathsrc}",
+            path    => ["${pathbin}"],
             require => File['download-dokuwiki'],
-            unless  => "test -d ${path1}/dokuwiki-2020-07-29"
+            unless  => "test -d ${pathsrc}/dokuwiki-2020-07-29"
     }
 
     file { 'rename-dokuwiki-2020-07-29':
             ensure  => present,
-            source  => "${path1}/dokuwiki-2020-07-29",
-            path    => "${path1}/dokuwiki",
+            source  => "${pathsrc}/dokuwiki-2020-07-29",
+            path    => "${pathsrc}/dokuwiki",
             require => Exec['extract-dokuwiki']
     }
 }
@@ -36,8 +36,8 @@ class dokuwiki {
 class dokuwikirecettes {
     file { 'create new directory for recettes.wiki in /var/www and allow apache to write in':
             ensure  => directory,
-            source  => "${path1}/dokuwiki",
-            path    => "${path3}/recettes.wiki",
+            source  => "${pathsrc}/dokuwiki",
+            path    => "${pathweb}/recettes.wiki",
             recurse => true,
             owner   => 'www-data',
             group   => 'www-data',
@@ -47,8 +47,8 @@ class dokuwikirecettes {
 
 class dokuwikipolitique {
     file { 'create new directory for politique.wiki in /var/www and allow apache to write in':            ensure  => directory,
-            source  => "${path1}/dokuwiki",
-            path    => "${path3}/politique.wiki",
+            source  => "${pathsrc}/dokuwiki",
+            path    => "${pathweb}/politique.wiki",
             recurse => true,
             owner   => 'www-data',
             group   => 'www-data',
