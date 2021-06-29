@@ -49,7 +49,7 @@ file { 'create new directory for politique.wiki in /var/www and allow apache to 
   recurse => true,
   owner   => 'www-data',
   group   => 'www-data',
-  require  => file['Copy-dokuwiki-directory-contents-in-politique-wiki']
+  before  => file['Copy-dokuwiki-directory-contents-in-politique-wiki']
 }
 
 file { 'Copy-dokuwiki-directory-contents-in-recettes-wiki':
