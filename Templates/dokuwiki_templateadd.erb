@@ -14,8 +14,6 @@ class dokuwiki::packages {
   }
 }
 
-# 3
-
 class dokuwiki::source {
   include dokuwiki::params
 
@@ -24,8 +22,6 @@ class dokuwiki::source {
     source => 'https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz',
     path   => "${source_path}/dokuwiki.tgz"
   }
-
-  # 4
 
   exec { 'dokuwiki::extract':
     command => 'tar xavf dokuwiki.tgz',
